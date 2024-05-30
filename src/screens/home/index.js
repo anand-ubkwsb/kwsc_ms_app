@@ -163,7 +163,7 @@ export default function Home() {
         setCurrReading(JSON.stringify(response.current_reading));
         setConsumption(JSON.stringify(response.consumption));
         setRemarks(response.remarks);
-        setFilePath(null);
+        setFilePath(response.imageFile);
       } else {
         setValue('');
         setPrevReading('');
@@ -311,7 +311,7 @@ export default function Home() {
                 style={styles.showImage}
                 resizeMode="cover"
                 source={{
-                  uri: filePath,
+                  uri: `data:image/png;base64,${filePath}`,
                 }}
               />
             )}
