@@ -1,0 +1,9 @@
+{
+    "primary": "#0f69fa",
+    "secondary": "#C0C0C0",
+    "error": "#d7191c",
+    "success": "#22bb33",
+    "white": "#ffffff",
+    "black": "#000000",
+    "inputBorder": "gray"
+  }

@@ -1,0 +1,260 @@
+import {Dimensions, PixelRatio, StyleSheet} from 'react-native';
+import {Colors, globalStyle} from '../../const';
+
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
+const scale = SCREEN_WIDTH / 320;
+const inputWidth = 200 * scale;
+const btnWidth = 80 * scale;
+
+export const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+  },
+  freeSpace: {
+    flex: 0.2,
+    width: '100%',
+  },
+  welcomeTxt: {
+    fontSize: globalStyle.font_size_medium,
+    fontFamily: globalStyle.font_family_medium,
+  },
+  usernameTxt: {
+    fontSize: globalStyle.font_size_large,
+    fontFamily: globalStyle.font_family_bold,
+    color: Colors.black,
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: globalStyle.padding_horizontal,
+  },
+  divider: {
+    height: 10,
+  },
+  consSearchContianer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  consSearchInput: {
+    height: globalStyle.height,
+    width: Math.round(PixelRatio.roundToNearestPixel(inputWidth)),
+    borderWidth: 1,
+    borderColor: Colors.inputBorder,
+    backgroundColor: Colors.white,
+    fontSize: globalStyle.font_size_medium,
+    fontFamily: globalStyle.font_family_medium,
+    paddingLeft: globalStyle.padding_horizontal,
+    borderRadius: globalStyle.border_radius,
+  },
+  consSearchBtn: {
+    height: globalStyle.height,
+    width: Math.round(PixelRatio.roundToNearestPixel(btnWidth)),
+    backgroundColor: Colors.primary,
+    borderRadius: globalStyle.border_radius,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  consSearchBtnLabel: {
+    fontFamily: globalStyle.font_family_medium,
+    fontSize: globalStyle.font_size_medium,
+    color: Colors.white,
+  },
+  inputs: {
+    height: globalStyle.height,
+    width: '100%',
+    borderWidth: 1,
+    borderColor: Colors.inputBorder,
+    backgroundColor: Colors.white,
+    fontSize: globalStyle.font_size_medium,
+    fontFamily: globalStyle.font_family_medium,
+    paddingLeft: globalStyle.padding_horizontal,
+    borderRadius: globalStyle.border_radius,
+  },
+  remarksInput: {
+    height: globalStyle.remarkInputHeight,
+    width: '100%',
+    textAlignVertical: 'top',
+    padding: globalStyle.padding_horizontal,
+    borderWidth: 1,
+    borderColor: Colors.inputBorder,
+    borderRadius: globalStyle.border_radius,
+    fontSize: globalStyle.font_size_medium,
+    fontFamily: globalStyle.font_family_medium,
+  },
+  pickerContainer: {
+    borderRadius: globalStyle.border_radius,
+    zIndex: 1,
+  },
+  picker: {
+    height: globalStyle.height,
+    width: '100%',
+    borderRadius: globalStyle.border_radius,
+    borderWidth: 1,
+    borderColor: Colors.inputBorder,
+  },
+  pickerText: {
+    fontSize: globalStyle.font_size_small,
+    fontFamily: globalStyle.font_family_medium,
+  },
+  placeholderStyle: {
+    fontSize: globalStyle.font_size_medium,
+    fontFamily: globalStyle.font_family_medium,
+    color: Colors.secondary,
+  },
+  dropDownContainerStyle: {
+    position: 'relative',
+    top: 0,
+    borderColor: Colors.inputBorder,
+  },
+  addImgContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  addImgTxt: {
+    fontSize: globalStyle.font_size_medium,
+    fontFamily: globalStyle.font_family_medium,
+    color: Colors.black,
+  },
+  addImgBtn: {
+    height: globalStyle.height,
+    paddingHorizontal: globalStyle.padding_horizontal,
+    backgroundColor: Colors.primary,
+    borderRadius: globalStyle.border_radius,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addImgBtnTxt: {
+    fontFamily: globalStyle.font_family_medium,
+    fontSize: globalStyle.font_size_medium,
+    color: Colors.white,
+  },
+  showImgHere: {
+    height: globalStyle.showImgHeight,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.inputBorder,
+    borderRadius: globalStyle.border_radius,
+  },
+  showImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: globalStyle.border_radius,
+  },
+  showImgHereTxt: {
+    fontFamily: globalStyle.font_family_medium,
+    fontSize: globalStyle.font_size_medium,
+    color: Colors.secondary,
+  },
+  updateBtn: {
+    height: globalStyle.height,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: globalStyle.border_radius,
+    marginVertical: globalStyle.margin_vertical,
+    backgroundColor: Colors.primary,
+  },
+  updateBtnTxt: {
+    fontSize: globalStyle.font_size_small,
+    fontFamily: globalStyle.font_family_medium,
+    color: Colors.white,
+  },
+  pressableContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0, 0.4)',
+  },
+  modalView: {
+    height: 150,
+    width: '100%',
+    backgroundColor: 'white',
+    borderTopLeftRadius: globalStyle.border_radius,
+    borderTopRightRadius: globalStyle.border_radius,
+    padding: globalStyle.padding_vertical,
+  },
+  modalText: {
+    fontSize: globalStyle.font_size_medium,
+    fontFamily: globalStyle.font_family_medium,
+    marginBottom: globalStyle.margin_vertical,
+    color: Colors.black,
+  },
+  BtnContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: globalStyle.margin_vertical,
+  },
+  BtnLabelView: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  BtnLabelTxt: {
+    fontSize: globalStyle.font_size_xsmall,
+    fontFamily: globalStyle.font_family_medium,
+    color: Colors.black,
+  },
+  labelStyle: {
+    alignItems: 'center',
+    fontSize: globalStyle.font_size_small,
+  },
+  btnStyle: {
+    height: 80,
+    width: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.inputBorder,
+    marginHorizontal: globalStyle.margin_horizontal,
+    borderRadius: globalStyle.roundBorderBtn,
+  },
+  thankyouPressableContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0, 0.4)',
+  },
+  thankyouModalView: {
+    height: 160,
+    width: '60%',
+    backgroundColor: 'white',
+    borderRadius: globalStyle.border_radius,
+    padding: globalStyle.padding_vertical,
+  },
+  checkViewStyle: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkIconStyle: {
+    height: 60,
+    width: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.inputBorder,
+    marginHorizontal: globalStyle.margin_horizontal,
+    borderRadius: globalStyle.roundBorderBtn,
+  },
+  checkTxtStyle: {
+    fontSize: globalStyle.font_size_large,
+    fontFamily: globalStyle.font_family_medium,
+    color: Colors.black,
+    marginVertical: globalStyle.margin_vertical,
+  },
+  crossIconView: {
+    position: 'absolute',
+    right: 5,
+    top: 5,
+  },
+  crossbtnStyle: {
+    height: 20,
+    width: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

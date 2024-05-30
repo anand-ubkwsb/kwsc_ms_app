@@ -1,0 +1,21 @@
+{
+    "height": 50,
+    "font_size_xsmall": 12,
+    "font_size_small": 14,
+    "font_size_medium": 16,
+    "font_size_large": 18,
+    "font_size_Xlarge": 20,
+    "font_family_regular": "Montserrat-Regular",
+    "font_family_medium": "Montserrat-Medium",
+    "font_family_bold": "Montserrat-Bold",
+    "padding_horizontal": 15,
+    "padding_vertical": 15,
+    "margin_horizontal": 10,
+    "margin_vertical": 10,
+    "border_radius": 5,
+    "inputPadding": 10,
+    "inputMargin": 5,
+    "remarkInputHeight": 100,
+    "roundBorderBtn": 70,
+    "showImgHeight": 120
+  }
