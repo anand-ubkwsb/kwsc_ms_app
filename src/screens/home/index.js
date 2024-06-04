@@ -14,6 +14,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import TextInputWrapper from '../../components/TextInputWrapper';
 import ButtonWrapper from '../../components/ButtonWrapper';
 import DropDownWrapper from '../../components/DropDownWrapper';
+import Loader from '../../components/Loader';
 
 import {Colors, Icons} from '../../const';
 
@@ -26,10 +27,11 @@ import {
 import {
   GetMeterConsumerInfo,
   GetListMeterType,
+  UpdateMaterInfo,
 } from '../../helper/apis/mcc_meter_api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Home() {
+export default function Home({navigation}) {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([]);
   const [value, setValue] = useState('');
@@ -38,6 +40,8 @@ export default function Home() {
   const [thankyouModalVisible, setThankyouModalVisible] = useState(false);
 
   const [filePath, setFilePath] = useState(null);
+  const [imageResponse, setImageResponse] = useState();
+  const [imageBase, setImageBase] = useState('');
 
   const [consumerNo, setconsumerNo] = useState('');
 
@@ -47,6 +51,8 @@ export default function Home() {
   const [remarks, setRemarks] = useState('');
   const [meterData, setMeterData] = useState([]);
   const [credentials, setCredentials] = useState();
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loginDetail();
@@ -86,6 +92,8 @@ export default function Home() {
           return;
         }
         setFilePath(response.assets[0].uri);
+        setImageResponse(response);
+        setImageBase('normal');
       });
     }
   }
@@ -112,6 +120,8 @@ export default function Home() {
         return;
       }
       setFilePath(response.assets[0].uri);
+      setImageResponse(response);
+      setImageBase('normal');
     });
   }
 
@@ -153,7 +163,7 @@ export default function Home() {
       consumer_no: consumerNo ?? '',
     };
     console.log(params);
-
+    setLoading(true);
     try {
       const response = await GetMeterConsumerInfo(params);
       // console.log('response', response);
@@ -164,6 +174,8 @@ export default function Home() {
         setConsumption(JSON.stringify(response.consumption));
         setRemarks(response.remarks);
         setFilePath(response.imageFile);
+        setImageBase('base64');
+        setLoading(false);
       } else {
         setValue('');
         setPrevReading('');
@@ -171,6 +183,8 @@ export default function Home() {
         setConsumption('');
         setRemarks('');
         setFilePath(null);
+        setImageBase('');
+        setLoading(false);
       }
     } catch (error) {
       console.log('---GetMeterConsumerInfo Catch Error---', error);
@@ -189,7 +203,44 @@ export default function Home() {
   }
 
   async function updateMeterBtn() {
-    console.log('update meter function');
+    try {
+      const formData = new FormData();
+      formData.append('userName', credentials.userName);
+      formData.append('passWord', credentials.passWord);
+      formData.append('consumer_no', consumerNo);
+      formData.append('meter_code', value);
+      formData.append('previous_reading', prevReading);
+      formData.append('current_reading', currReading);
+      formData.append('consumption', consumption);
+      formData.append('remarks', remarks);
+      formData.append('meter_reading_image', imageResponse.assets[0].fileName);
+      formData.append('formFile', {
+        uri: imageResponse.assets[0].uri,
+        type: imageResponse.assets[0].type,
+        name: imageResponse.assets[0].fileName,
+      });
+      // console.log('Update Meter Info Params', params);
+      setLoading(true);
+      const response = await UpdateMaterInfo(formData);
+      // console.log('Update Meter Info Response ', response);
+      if (response.status == 'Success') {
+        setThankyouModalVisible(!thankyouModalVisible);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log('---updateMeterBtn Catch Error---', error);
+    }
+  }
+
+  async function logout() {
+    try {
+      await AsyncStorage.removeItem('loginCredentials');
+      navigation.goBack();
+    } catch (error) {
+      console.log('---logout Catch Error---', error);
+    }
   }
 
   return (
@@ -198,7 +249,17 @@ export default function Home() {
       resizeMode="cover"
       source={require('../../assets/images/homeBg.jpg')}>
       {/* free space for header */}
-      <View style={styles.freeSpace} />
+      <View style={styles.freeSpace}>
+        <View style={styles.logoutIcon}>
+          <Icons
+            type={'MaterialIcons'}
+            name={'logout'}
+            color={'#0c2273'}
+            size={20}
+            onPress={() => logout()}
+          />
+        </View>
+      </View>
       <View style={styles.container}>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -221,7 +282,9 @@ export default function Home() {
             />
             <ButtonWrapper
               activeOpacity={0.9}
-              label={'Search'}
+              label={
+                loading == true ? <Loader animating={loading} /> : 'Search'
+              }
               buttonStyle={styles.consSearchBtn}
               labelStyle={styles.consSearchBtnLabel}
               onPress={() => searchMeterInfo()}
@@ -306,7 +369,7 @@ export default function Home() {
           <View style={styles.showImgHere}>
             {filePath == null ? (
               <Text style={styles.showImgHereTxt}>No Image</Text>
-            ) : (
+            ) : imageBase == 'base64' ? (
               <Image
                 style={styles.showImage}
                 resizeMode="cover"
@@ -314,17 +377,22 @@ export default function Home() {
                   uri: `data:image/png;base64,${filePath}`,
                 }}
               />
+            ) : (
+              <Image
+                style={styles.showImage}
+                resizeMode="cover"
+                source={{
+                  uri: filePath,
+                }}
+              />
             )}
           </View>
           <ButtonWrapper
             buttonStyle={styles.updateBtn}
             labelStyle={styles.updateBtnTxt}
-            label={'Update'}
+            label={loading == true ? <Loader animating={loading} /> : 'Update'}
             activeOpacity={0.9}
-            onPress={() => {
-              updateMeterBtn();
-              // setThankyouModalVisible(!thankyouModalVisible);
-            }}
+            onPress={() => updateMeterBtn()}
           />
           <Modal
             animationType="fade"

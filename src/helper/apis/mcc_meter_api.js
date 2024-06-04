@@ -8,6 +8,7 @@ import {
 const getMeterConsumerInfoUrl = baseUrl + '/MCC/GetMeterConsumerInfo';
 const getMeterUserLoginUrl = baseUrl + '/MCC/GetMeterUserLogin';
 const getListMeterTypeUrl = baseUrl + '/MCC/GetListMeterType';
+const getUpdateMeterInfoUrl = baseUrl + '/MCC/UpdateMeterConsumerInfo';
 
 export const GetMeterConsumerInfo = async params => {
   const meterConsumerInfo = await GetNetworkHandler(
@@ -28,4 +29,13 @@ export const GetMeterUserLogin = async params => {
     'POST',
   );
   return meterUserLogin;
+};
+
+export const UpdateMaterInfo = async params => {
+  const udpateMeterInfo = await PostFileNetworkHandler(
+    getUpdateMeterInfoUrl,
+    'POST',
+    params,
+  );
+  return udpateMeterInfo;
 };

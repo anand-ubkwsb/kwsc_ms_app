@@ -14,6 +14,15 @@ export const styles = StyleSheet.create({
     flex: 0.2,
     width: '100%',
   },
+  logoutIcon: {
+    position: 'absolute',
+    bottom: 5,
+    right: 15,
+    padding: globalStyle.padding,
+    borderWidth: 1,
+    borderColor: Colors.secondary,
+    borderRadius: globalStyle.logoutIconBorder,
+  },
   welcomeTxt: {
     fontSize: globalStyle.font_size_medium,
     fontFamily: globalStyle.font_family_medium,

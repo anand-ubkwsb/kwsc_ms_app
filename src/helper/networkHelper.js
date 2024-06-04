@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export const PostNetworkHandler = async (url, method) => {
@@ -44,8 +43,7 @@ export const PostFileNetworkHandler = async (
   method,
   params = undefined,
 ) => {
-  const token = await AsyncStorage.getItem('token');
-  // console.log(url, method, params);
+  console.log(url, method, params);
   try {
     const response = await axios({
       method: method,
@@ -53,7 +51,6 @@ export const PostFileNetworkHandler = async (
       data: params,
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
       },
     })
       .then(res => {
@@ -64,6 +61,6 @@ export const PostFileNetworkHandler = async (
       });
     return response;
   } catch (error) {
-    console.log('PostNetworkHandler Catch Error:', error);
+    console.log('PostFileNetworkHandler Catch Error:', error);
   }
 };

@@ -8,8 +8,10 @@
     "font_family_regular": "Montserrat-Regular",
     "font_family_medium": "Montserrat-Medium",
     "font_family_bold": "Montserrat-Bold",
+    "padding": 5,
     "padding_horizontal": 15,
     "padding_vertical": 15,
+    "margin": 5,
     "margin_horizontal": 10,
     "margin_vertical": 10,
     "border_radius": 5,
@@ -17,5 +19,6 @@
     "inputMargin": 5,
     "remarkInputHeight": 100,
     "roundBorderBtn": 70,
-    "showImgHeight": 120
+    "showImgHeight": 120,
+    "logoutIconBorder": 20
   }
