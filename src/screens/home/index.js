@@ -40,6 +40,7 @@ export default function Home({navigation}) {
   const [thankyouModalVisible, setThankyouModalVisible] = useState(false);
 
   const [filePath, setFilePath] = useState(null);
+  const [meterReadingImageName, setMeterReadingImageName] = useState();
   const [imageResponse, setImageResponse] = useState();
   const [imageBase, setImageBase] = useState('');
 
@@ -166,7 +167,7 @@ export default function Home({navigation}) {
     setLoading(true);
     try {
       const response = await GetMeterConsumerInfo(params);
-      // console.log('response', response);
+      console.log('response', response);
       if (response.status == 'Success') {
         setValue(JSON.stringify(response.meter_code));
         setPrevReading(JSON.stringify(response.previous_reading));
@@ -174,6 +175,7 @@ export default function Home({navigation}) {
         setConsumption(JSON.stringify(response.consumption));
         setRemarks(response.remarks);
         setFilePath(response.imageFile);
+        setMeterReadingImageName(response.meter_reading_image);
         setImageBase('base64');
         setLoading(false);
       } else {
@@ -213,13 +215,23 @@ export default function Home({navigation}) {
       formData.append('current_reading', currReading);
       formData.append('consumption', consumption);
       formData.append('remarks', remarks);
-      formData.append('meter_reading_image', imageResponse.assets[0].fileName);
-      formData.append('formFile', {
-        uri: imageResponse.assets[0].uri,
-        type: imageResponse.assets[0].type,
-        name: imageResponse.assets[0].fileName,
-      });
-      // console.log('Update Meter Info Params', params);
+      formData.append(
+        'meter_reading_image',
+        !imageResponse
+          ? meterReadingImageName
+          : imageResponse.assets[0].fileName,
+      );
+      formData.append(
+        'formFile',
+        !imageResponse
+          ? null
+          : {
+              uri: imageResponse.assets[0].uri,
+              type: imageResponse.assets[0].type,
+              name: imageResponse.assets[0].fileName,
+            },
+      );
+      // console.log('Update Meter Info Params', formData);
       setLoading(true);
       const response = await UpdateMaterInfo(formData);
       // console.log('Update Meter Info Response ', response);
@@ -367,7 +379,7 @@ export default function Home({navigation}) {
           </View>
           <View style={styles.divider} />
           <View style={styles.showImgHere}>
-            {filePath == null ? (
+            {filePath === null ? (
               <Text style={styles.showImgHereTxt}>No Image</Text>
             ) : imageBase == 'base64' ? (
               <Image

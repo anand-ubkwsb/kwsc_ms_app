@@ -55,11 +55,14 @@ export default function Login({navigation}) {
         <TextInputWrapper
           label={'Username'}
           inputContainerStyle={styles.input}
-          onChangeText={text => setUserName(text)}
+          onChangeText={text =>
+            setUserName(text.toLocaleLowerCase().replace(' ', ''))
+          }
         />
         <TextInputWrapper
           label={'Password'}
           keyboardType={'password'}
+          isPassword={true}
           inputContainerStyle={styles.input}
           onChangeText={text => setPassWord(text)}
         />
